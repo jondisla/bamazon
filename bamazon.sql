@@ -24,7 +24,7 @@ VALUES ("Screen Protector", "Accessories", 5, 100);
 
 
 INSERT INTO products (product_name, department_name, price, stock_quantity)
-VALUES ("Smart Watch", "Electronics", 100, 5000);
+VALUES ("Smart Watch", "Electronics", 100, 20);
 
 
 INSERT INTO products (product_name, department_name, price, stock_quantity)
@@ -44,8 +44,8 @@ VALUES ("XBOX ONE", "video games", 199, 50);
 
 
 INSERT INTO products (product_name, department_name, price, stock_quantity)
-VALUES ("vanilla", "food", 100, 5000);
+VALUES ("Fitness Watch", "Electronics", 100, 20);
 
 INSERT INTO products (product_name, department_name, price, stock_quantity)
-VALUES ("vanilla", "food", 100, 5000);
+VALUES ("Bluetooth Speaker", "Electronics", 100, 10);
 
