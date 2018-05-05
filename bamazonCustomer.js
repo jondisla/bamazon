@@ -37,78 +37,58 @@ connection.connect(function(err) {
         message: "Enter the ID of the product you would like to buy",
         choices: ["1", "2", "3", "4", "5", "6", "7", "8", "9", "10",]
       },
-
-    ])
-    .then(function(answer) {
-      switch (answer.id) {
-      case "1":
-        iphone();
-        break;
-
-      case "2":
-        cellCase();
-        break;
-
-      case "3":
-        protector();
-        break;
-
-      case "4":
-        smartWatch();
-        break;
-
-      case "5":
-        charger();
-        break;
-
-      case "6":
-        buds();
-        break;
-
-      case "7":
-        ps();
-        break;
-
-      case "8":
-        xbox();
-        break;
-
-      case "9":
-        fitnessWatch();
-        break;
-
-      case "10":
-        speaker();
-        break;
-    }
-  });
-}
-
-  function iphone() {
-    inquirer
-      .prompt({
-        name: "quantity",
+      {name: "quantity",
         type: "input",
         message: "How many units would you like to buy?"
-      })
+      }
+    ])
       .then(function(answer) {
+        var quant = "SELECT stock_quantity FROM products";
         console.log(answer.quantity);
       // console.log(answer.action);
-      if (answer.quantity < answer.action) {
+      if (answer.quantity < quant) {
         console.log(answer);
       } else {
-        return "Insufficient quantity!";
+        console.log('Insufficient Quantity');
+        connection.end();
+        return "";
+        
       }
-
-        // var query = "SELECT stock_quantity FROM products WHERE ?";
-        "Update products SET stock_quantity = - ? where item_id = ? ",
-        [parseInt(answer.quantity), answer.action],
+      connection.query(
+        "Update products SET stock_quantity = stock_quantity - ? where id = ? ",
+        [parseInt(answer.quantity), answer.id],
         function(err, response) {
           if (err) {
             console.log(err);
           }
           console.log(response);
-        };
-      });
-      
+        });
+        updateDisplay();
+    });
+
+    function updateDisplay() {
+      console.log("Selecting the new items with the total price of the items..\n");
+      connection.query(
+        "SELECT product_name, price, stock_quantity, (price * stock_quantity) as totalPrice FROM products",
+        function(err, response) {
+          if (err) {
+            console.log(err);
+          }
+          for (var i = 0; i < response.length; i++) {
+            console.log(
+              "-------------------------" + '\n' +
+                "Item: " + response[i].product_name + '\n' +
+               "| Price: " +
+                response[i].price + '\n' +
+                "| Stock_quantity: " +
+                response[i].stock_quantity + '\n' +
+                "| TotalPrice: " +
+                response[i].price + '\n' +
+                "-------------------------"
+            );
+          }
+         
+        }
+      );
     }
+}
