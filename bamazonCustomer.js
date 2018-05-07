@@ -42,18 +42,21 @@ connection.connect(function(err) {
         message: "How many units would you like to buy?"
       }
     ])
-      .then(function(answer) {
-        var quant = "SELECT stock_quantity FROM products";
-        console.log(answer.quantity);
-      // console.log(answer.action);
-      if (answer.quantity < quant) {
-        console.log(answer);
-      } else {
-        console.log('Insufficient Quantity');
-        connection.end();
-        return "";
-        
-      }
+    .then(function(answer) {
+      var quant = "SELECT stock_quantity FROM products";
+      // console.log(answer.quantity);
+    // console.log(answer.action);
+    if (answer.quantity < quant) {
+      console.log("************************");
+      console.log("Thank you for your purchase!!!");
+      console.log(answer);
+      console.log("************************");
+    } else {
+      console.log('Insufficient Quantity');
+      connection.end();
+      return "";
+      
+    }
       connection.query(
         "Update products SET stock_quantity = stock_quantity - ? where id = ? ",
         [parseInt(answer.quantity), answer.id],
@@ -61,10 +64,26 @@ connection.connect(function(err) {
           if (err) {
             console.log(err);
           }
-          console.log(response);
+          // console.log(response);
         });
+        proceed();
+    });
+
+    function proceed() {
+      inquirer
+        .prompt([
+          {
+          name: "proceed",
+          type: "list",
+          message: "ENTER to proceed",
+          choices: ["ENTER"]
+        }
+    ])
+    .then(function(answer) {
+      
         updateDisplay();
     });
+  }
 
     function updateDisplay() {
       console.log("Selecting the new items with the total price of the items..\n");

@@ -16,11 +16,11 @@ INSERT INTO products (product_name, department_name, price, stock_quantity)
 VALUES ("Iphone 20", "Electronics", 1000, 10);
 
 INSERT INTO products (product_name, department_name, price, stock_quantity)
-VALUES ("Cellphone Case", "Phones", 50, 500);
+VALUES ("Cellphone Case", "Phones", 50, 20);
 
 
 INSERT INTO products (product_name, department_name, price, stock_quantity)
-VALUES ("Screen Protector", "Accessories", 5, 100);
+VALUES ("Screen Protector", "Accessories", 5, 10);
 
 
 INSERT INTO products (product_name, department_name, price, stock_quantity)
@@ -28,19 +28,19 @@ VALUES ("Smart Watch", "Electronics", 100, 20);
 
 
 INSERT INTO products (product_name, department_name, price, stock_quantity)
-VALUES ("Charger", "Electronics", 50, 100);
+VALUES ("Charger", "Electronics", 50, 10);
 
 
 INSERT INTO products (product_name, department_name, price, stock_quantity)
-VALUES ("earbuds", "Electronics", 100, 100);
+VALUES ("earbuds", "Electronics", 100, 20);
 
 
 INSERT INTO products (product_name, department_name, price, stock_quantity)
-VALUES ("PS4", "video games", 199, 50);
+VALUES ("PS4", "video games", 199, 5);
 
 
 INSERT INTO products (product_name, department_name, price, stock_quantity)
-VALUES ("XBOX ONE", "video games", 199, 50);
+VALUES ("XBOX ONE", "video games", 199, 10);
 
 
 INSERT INTO products (product_name, department_name, price, stock_quantity)
