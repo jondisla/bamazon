@@ -6,7 +6,7 @@ var connection = mysql.createConnection({
     port: 3306,
     user: "root",
     password: "root",
-    database: "bamazon"
+    database: "bamazon",
 });
 
 connection.connect(function(err) {
@@ -15,6 +15,7 @@ connection.connect(function(err) {
     start();
   });
   
+  //displays the store
   function start() {
     connection.query("SELECT * FROM products", function(err, res) {
         if (err) throw err;
@@ -28,6 +29,8 @@ connection.connect(function(err) {
     runProducts();
   });
 }
+
+//asks user for item and amount to purchase, then prints it
   function runProducts() {
     inquirer
       .prompt([
@@ -44,8 +47,8 @@ connection.connect(function(err) {
     ])
     .then(function(answer) {
       var quant = "SELECT stock_quantity FROM products";
-      // console.log(answer.quantity);
-    // console.log(answer.action);
+      console.log(answer.quantity);
+      console.log(quant);
     if (answer.quantity < quant) {
       console.log("************************");
       console.log("Thank you for your purchase!!!");
@@ -55,7 +58,6 @@ connection.connect(function(err) {
       console.log('Insufficient Quantity');
       connection.end();
       return "";
-      
     }
       connection.query(
         "Update products SET stock_quantity = stock_quantity - ? where id = ? ",
@@ -64,27 +66,27 @@ connection.connect(function(err) {
           if (err) {
             console.log(err);
           }
-          // console.log(response);
         });
         proceed();
     });
 
+//runs the prompt to stop and show what has been bought
     function proceed() {
       inquirer
         .prompt([
           {
           name: "proceed",
           type: "list",
-          message: "ENTER to proceed",
+          message: "to proceed press",
           choices: ["ENTER"]
         }
     ])
     .then(function(answer) {
-      
         updateDisplay();
     });
   }
 
+  //Displays the store quantities after purchase
     function updateDisplay() {
       console.log("Selecting the new items with the total price of the items..\n");
       connection.query(
